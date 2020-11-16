@@ -4,8 +4,6 @@ import Bookmark from "./Bookmark"
 import Paper from "@material-ui/core/Paper";
 import List from "@material-ui/core/List";
 
-
-
 function BookmarkList({ bookmarks, deleteBookmark }) {
     if(bookmarks.length)
     return (

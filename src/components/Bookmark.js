@@ -10,7 +10,6 @@ import StarIcon from "@material-ui/icons/Star";
 
 function Bookmark({ link, deleteBookmark, id }) {
     return (
-
         <ListItem key="44">
             <>             
                 <ListItemIcon>
@@ -24,7 +23,6 @@ function Bookmark({ link, deleteBookmark, id }) {
                 </ListItemSecondaryAction>
             </>               
         </ListItem>
-
     );
 }
 

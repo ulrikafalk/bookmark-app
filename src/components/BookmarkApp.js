@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import BookmarkForm from "./BookmarkForm"
 import BookmarkList from "./BookmarkList"
 
@@ -9,10 +9,10 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Grid from "@material-ui/core/Grid";
 import { v4 as uuidv4 } from 'uuid';
 
-
 function BookmarkApp() {
     const initialBookmarks = JSON.parse(window.localStorage.getItem("bookmarks") || "[]");
     const [bookmarks, setBookmarks] = useState(initialBookmarks);
+    const renderNumBookmarks = useRef(initialBookmarks.length);
 
     useEffect(() => {
         window.localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
@@ -20,10 +20,13 @@ function BookmarkApp() {
 
     const addBookmark = newBookmarkLink => {
         setBookmarks([...bookmarks, { id: uuidv4(), link: newBookmarkLink }]);
+        renderNumBookmarks.current = renderNumBookmarks.current + 1;
     };
+
     const deleteBookmark = BookmarkId => {
         const updatedBookmarks = bookmarks.filter(bookmark => bookmark.id !== BookmarkId);
         setBookmarks(updatedBookmarks);
+        renderNumBookmarks.current = renderNumBookmarks.current - 1;
     }
 
     return (
@@ -38,7 +41,7 @@ function BookmarkApp() {
         >
             <AppBar color='default' position='static' style={{ height: "64px" }}>
                 <Toolbar>
-                    <Typography color='inherit' variant='h5'>The Bookmark App</Typography>
+                    <Typography color='inherit' variant='h5'>The Fav Bookmark App contains {renderNumBookmarks.current} links</Typography>
                 </Toolbar>
             </AppBar>
             <Grid container justify='center' style={{ marginTop: "1rem" }}>
